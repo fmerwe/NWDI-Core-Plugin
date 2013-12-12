@@ -17,29 +17,40 @@ enum SyncDcCommandTemplate {
     /**
      * Template for NW 7.0.
      */
-    V70("syncdc -s %s -n %s -v %s -m inactive -y;", "syncdc -s %s -n %s -v %s -m archive --syncused;",
-        "syncalldcs -s %s -m archive;", "syncalldcs -s %s -m inactive;", "unsyncdc -s %s -n %s -v %s;"),
+    V70("syncdc -s %s -n %s -v %s -m inactive -y;",
+	    "syncdc -s %s -n %s -v %s -m archive --syncused;",
+	    "syncalldcs -s %s -m archive;", "syncalldcs -s %s -m inactive;",
+	    "unsyncdc -s %s -n %s -v %s;"),
+
+    /**
+     * Template for NW 7.1.
+     */
+    V7x("syncdc -s %s -n %s -v %s -m inactive -y;",
+	    "syncdc -s %s -n %s -v %s -m archive --syncused;",
+	    "syncalldcs -s %s -m archive;", "syncalldcs -s %s -m inactive;",
+	    "unsyncdc -s %s -n %s -v %s;"),
 
     /**
      * Template for NW 7.1+.
      */
-    V71("syncdc -c %s -n %s -v %s -m inactive -f", "syncdc -c %s -n %s -v %s -m archive",
-        "syncalldcs -c %s -m archive", "syncalldcs -c %s -m inactive", "unsyncdc -c %s -n %s -v %s");
+    V71("syncdc -c %s -n %s -v %s -m inactive -f",
+	    "syncdc -c %s -n %s -v %s -m archive",
+	    "syncalldcs -c %s -m archive", "syncalldcs -c %s -m inactive",
+	    "unsyncdc -c %s -n %s -v %s");
 
     /**
      * mapping from JdkHomeAlias to template used for generating DC tool
      * commands for synchronizing development components.
      */
     @SuppressWarnings("serial")
-    private static final Map<JdkHomeAlias, SyncDcCommandTemplate> TEMPLATES =
-        new HashMap<JdkHomeAlias, SyncDcCommandTemplate>() {
-            {
-                put(JdkHomeAlias.Jdk131Home, V70);
-                put(JdkHomeAlias.Jdk142Home, V70);
-                put(JdkHomeAlias.Jdk150Home, V71);
-                put(JdkHomeAlias.Jdk160Home, V71);
-            }
-        };
+    private static final Map<JdkHomeAlias, SyncDcCommandTemplate> TEMPLATES = new HashMap<JdkHomeAlias, SyncDcCommandTemplate>() {
+	{
+	    put(JdkHomeAlias.Jdk131Home, V70);
+	    put(JdkHomeAlias.Jdk142Home, V70);
+	    put(JdkHomeAlias.Jdk150Home, V7x);
+	    put(JdkHomeAlias.Jdk160Home, V71);
+	}
+    };
 
     /**
      * template to use for creating a 'syncdc' in inactive state command.
@@ -85,14 +96,16 @@ enum SyncDcCommandTemplate {
      *            template to use for creating a 'unsyncdc' in active state
      *            command.
      */
-    SyncDcCommandTemplate(final String syncInactiveDcTemplate, final String syncArchiveDcTemplate,
-        final String syncAllDcsForGivenCompartmentInArchiveModeTemplate, final String syncAllDcsInInactiveModeTemplate,
-        final String unsyncDcTemplate) {
-        this.syncInactiveDcTemplate = syncInactiveDcTemplate;
-        this.syncArchiveDcTemplate = syncArchiveDcTemplate;
-        this.syncAllDcsForGivenCompartmentInArchiveModeTemplate = syncAllDcsForGivenCompartmentInArchiveModeTemplate;
-        this.syncAllDcsInInactiveModeTemplate = syncAllDcsInInactiveModeTemplate;
-        this.unsyncDcTemplate = unsyncDcTemplate;
+    SyncDcCommandTemplate(final String syncInactiveDcTemplate,
+	    final String syncArchiveDcTemplate,
+	    final String syncAllDcsForGivenCompartmentInArchiveModeTemplate,
+	    final String syncAllDcsInInactiveModeTemplate,
+	    final String unsyncDcTemplate) {
+	this.syncInactiveDcTemplate = syncInactiveDcTemplate;
+	this.syncArchiveDcTemplate = syncArchiveDcTemplate;
+	this.syncAllDcsForGivenCompartmentInArchiveModeTemplate = syncAllDcsForGivenCompartmentInArchiveModeTemplate;
+	this.syncAllDcsInInactiveModeTemplate = syncAllDcsInInactiveModeTemplate;
+	this.unsyncDcTemplate = unsyncDcTemplate;
     }
 
     /**
@@ -103,7 +116,7 @@ enum SyncDcCommandTemplate {
      *         command.
      */
     String getSyncInactiveDcTemplate() {
-        return syncInactiveDcTemplate;
+	return syncInactiveDcTemplate;
     }
 
     /**
@@ -112,7 +125,7 @@ enum SyncDcCommandTemplate {
      * @return template to use for creating a 'syncdc' in active state command.
      */
     String getSyncArchiveDcTemplate() {
-        return syncArchiveDcTemplate;
+	return syncArchiveDcTemplate;
     }
 
     /**
@@ -123,7 +136,7 @@ enum SyncDcCommandTemplate {
      *         command for a given compartment.
      */
     String getSyncAllDcsForGivenCompartmentInArchiveModeTemplate() {
-        return syncAllDcsForGivenCompartmentInArchiveModeTemplate;
+	return syncAllDcsForGivenCompartmentInArchiveModeTemplate;
     }
 
     /**
@@ -134,7 +147,7 @@ enum SyncDcCommandTemplate {
      *         in inactive mode.
      */
     String getSyncAllDcsInInactiveModeTemplate() {
-        return syncAllDcsInInactiveModeTemplate;
+	return syncAllDcsInInactiveModeTemplate;
     }
 
     /**
@@ -145,7 +158,7 @@ enum SyncDcCommandTemplate {
      *         command.
      */
     String getUnsyncDcTemplate() {
-        return unsyncDcTemplate;
+	return unsyncDcTemplate;
     }
 
     /**
@@ -156,12 +169,13 @@ enum SyncDcCommandTemplate {
      * @return template corresponding to the given alias.
      */
     public static final SyncDcCommandTemplate create(final JdkHomeAlias alias) {
-        final SyncDcCommandTemplate template = TEMPLATES.get(alias);
+	final SyncDcCommandTemplate template = TEMPLATES.get(alias);
 
-        if (template == null) {
-            throw new IllegalStateException(String.format("Could not map SyncDcCommandTemplate onto %s!", alias));
-        }
+	if (template == null) {
+	    throw new IllegalStateException(String.format(
+		    "Could not map SyncDcCommandTemplate onto %s!", alias));
+	}
 
-        return template;
+	return template;
     }
 }

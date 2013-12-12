@@ -69,7 +69,7 @@ public final class CBSToolCommandExecutor extends AbstractDIToolExecutor {
             result = execute(new DCLister(config, getDiToolDescriptor()));
             new DCListReader(config, dcFactory).execute(new StringReader(result.getOutput()));
         }
-        else if (CbsToolVersion.PRE_CE.equals(cbsToolVersion)) {
+        else if (CbsToolVersion.PRE_CE.equals(cbsToolVersion) || CbsToolVersion.CE71.equals(cbsToolVersion)) {
             result = execute(new ListCompartments(config.getCmsUrl(), config.getName(), getDiToolDescriptor()));
 
             if (result.isExitCodeOk()) {

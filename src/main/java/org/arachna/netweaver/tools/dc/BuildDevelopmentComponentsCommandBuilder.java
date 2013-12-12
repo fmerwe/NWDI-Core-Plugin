@@ -30,6 +30,12 @@ final class BuildDevelopmentComponentsCommandBuilder extends AbstractDCToolComma
          * template for NW 7.0 dctool build command.
          */
         V70("builddc -s %s -n %s -v %s -o;"),
+        
+	/**
+	 * template for NW 7.1 dctool build command.
+	 */
+        V7x("builddc -s %s -n %s -v %s -o;"),
+
         /**
          * template for post NW 7.0 dctool build command.
          */
@@ -45,7 +51,7 @@ final class BuildDevelopmentComponentsCommandBuilder extends AbstractDCToolComma
                 {
                     put(JdkHomeAlias.Jdk131Home, V70);
                     put(JdkHomeAlias.Jdk142Home, V70);
-                    put(JdkHomeAlias.Jdk150Home, V71);
+                    put(JdkHomeAlias.Jdk150Home, V7x);
                     put(JdkHomeAlias.Jdk160Home, V71);
                 }
             };

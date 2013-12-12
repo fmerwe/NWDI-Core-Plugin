@@ -18,6 +18,14 @@ enum LoadConfigTemplate {
      * template for connecting and disconnecting a dctool to/from the NWDI (NetWeaver 7.0).
      */
     V70("loadconfig -u %s -p %s -c \"%s\" -r \"%s\";\n", "exectime -m on;", "spool spool.txt;", "tracefile tracefile.txt;", "exit;"),
+    
+    /**
+     * template for connecting and disconnecting a dctool to/from the NWDI
+     * (NetWeaver 7.1).
+     */
+    V7x("loadconfig -u %s -p %s -c \"%s\" -r \"%s\";\n", "exectime -m on;", "spool spool.txt;",
+        "tracefile tracefile.txt;", "exit;"),
+
     /**
      * template for connecting and disconnecting a dctool to/from the NWDI (NetWeaver 7.1 and onwards).
      */
@@ -31,7 +39,7 @@ enum LoadConfigTemplate {
         {
             put(JdkHomeAlias.Jdk131Home, V70);
             put(JdkHomeAlias.Jdk142Home, V70);
-            put(JdkHomeAlias.Jdk150Home, V71);
+            put(JdkHomeAlias.Jdk150Home, V7x);
             put(JdkHomeAlias.Jdk160Home, V71);
         }
     };

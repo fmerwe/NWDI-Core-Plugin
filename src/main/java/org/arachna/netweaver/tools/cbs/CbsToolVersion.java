@@ -20,7 +20,12 @@ public enum CbsToolVersion {
     /**
      * pre CE version of CBS tool.
      */
-    PRE_CE("com.sap.tc.cbstool.startup.CBSToolMain", "cbstoolstartup.jar");
+    PRE_CE("com.sap.tc.cbstool.startup.CBSToolMain", "cbstoolstartup.jar"),
+
+    /**
+     * CE71
+     */
+    CE71("com.sap.tc.cbstool.startup.CBSToolMain", "tc~di~cbs~toolstartup~cmdline_core.jar");
 
     /**
      * application to start the CBS tool.
